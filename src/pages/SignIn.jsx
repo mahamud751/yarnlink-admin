@@ -45,7 +45,9 @@ const SignIn = () => {
                 <div>
                   <div className="text-center my-5">
                     <img
-                      src={"https://i.ibb.co/GpqY8tQ/PSH-web-logo-1.png"}
+                      src={
+                        "https://i.ibb.co/y4hwKpg/Green-Minimalist-Crochet-Illustration-Handicraft-Logo-removebg-preview.png"
+                      }
                       alt=""
                       className="img-fluid"
                       style={{ width: 190 }}
