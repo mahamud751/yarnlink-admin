@@ -12,12 +12,24 @@ import { Link } from "react-router-dom";
 import Banner from "../../pages/edit/Banner";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { useQuery } from "react-query";
 
 const Banner_list = () => {
   const MySwal = withReactContent(Swal);
 
   //sub stream
-  const [data, setData] = useState([]);
+  const { data, error } = useQuery("bannerData", async () => {
+    const response = await axios.get("http://localhost:5001/api/banner", {
+      mode: "cors",
+    });
+    return response.data;
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching banner data:", error);
+    }
+  }, [error, data]);
 
   const columns = [
     {
@@ -109,21 +121,10 @@ const Banner_list = () => {
       console.log("sizePerPage", sizePerPage);
     },
   });
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:5001/api/banner`, {
-          mode: "cors",
-        });
-        setData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
+
   //delete
   const [products, setProducts] = useState(data);
+
   const handleCategory = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
@@ -174,7 +175,7 @@ const Banner_list = () => {
                     bootstrap4
                     keyField="_id"
                     columns={columns}
-                    data={data}
+                    data={data || []}
                     pagination={pagination}
                     exportCSV
                   >
@@ -184,7 +185,7 @@ const Banner_list = () => {
                           bootstrap4
                           keyField="_id"
                           columns={columns}
-                          data={data}
+                          data={data || []}
                           pagination={pagination}
                           {...props.baseProps}
                         />

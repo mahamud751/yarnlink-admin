@@ -9,6 +9,7 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import BootstrapTable from "react-bootstrap-table-next";
+import { useQuery } from "react-query";
 
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
@@ -18,8 +19,18 @@ import Supplier from "../../pages/edit/Supplier";
 const Supplier_list = () => {
   const MySwal = withReactContent(Swal);
 
-  //sub stream
-  const [data, setData] = useState([]);
+  const { data, error } = useQuery("supplier", async () => {
+    const response = await axios.get("http://localhost:5001/api/supplier", {
+      mode: "cors",
+    });
+    return response.data;
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching banner data:", error);
+    }
+  }, [error, data]);
 
   const columns = [
     {
@@ -111,25 +122,13 @@ const Supplier_list = () => {
       console.log("sizePerPage", sizePerPage);
     },
   });
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:5001/api/supplier`, {
-          mode: "cors",
-        });
-        setData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
+
   //delete
   const [supplier, setSuppliers] = useState(data);
   const handleSupplier = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/product/${id}`;
+      const url = `http://localhost:5001/api/supplier/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -176,7 +175,7 @@ const Supplier_list = () => {
                     bootstrap4
                     keyField="_id"
                     columns={columns}
-                    data={data}
+                    data={data || []}
                     pagination={pagination}
                     exportCSV
                   >
@@ -186,7 +185,7 @@ const Supplier_list = () => {
                           bootstrap4
                           keyField="_id"
                           columns={columns}
-                          data={data}
+                          data={data || []}
                           pagination={pagination}
                           {...props.baseProps}
                         />

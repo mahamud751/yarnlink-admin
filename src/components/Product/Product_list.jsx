@@ -13,12 +13,23 @@ import Product from "../../pages/edit/Product";
 import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { useQuery } from "react-query";
 
 const Product_list = () => {
   const MySwal = withReactContent(Swal);
 
-  //sub stream
-  const [data, setData] = useState([]);
+  const { data, error } = useQuery("product", async () => {
+    const response = await axios.get("http://localhost:5001/api/product", {
+      mode: "cors",
+    });
+    return response.data;
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching banner data:", error);
+    }
+  }, [error, data]);
 
   const columns = [
     {
@@ -110,19 +121,7 @@ const Product_list = () => {
       console.log("sizePerPage", sizePerPage);
     },
   });
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:5001/api/product`, {
-          mode: "cors",
-        });
-        setData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
+
   //delete
   const [products, setProducts] = useState(data);
   const handleProduct = async (id) => {
@@ -175,7 +174,7 @@ const Product_list = () => {
                     bootstrap4
                     keyField="_id"
                     columns={columns}
-                    data={data}
+                    data={data || []}
                     pagination={pagination}
                     exportCSV
                   >
@@ -185,7 +184,7 @@ const Product_list = () => {
                           bootstrap4
                           keyField="_id"
                           columns={columns}
-                          data={data}
+                          data={data || []}
                           pagination={pagination}
                           {...props.baseProps}
                         />

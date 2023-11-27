@@ -19,6 +19,7 @@ const Navbar = () => {
   const [isActive2, setIsActive2] = useState(false);
   const [isActive3, setIsActive3] = useState(false);
   const [isActive4, setIsActive4] = useState(false);
+  const [isActive5, setIsActive5] = useState(false);
 
   const handleLogOut = () => {
     logoutUser();
@@ -156,6 +157,7 @@ const Navbar = () => {
                       setIsActive2(false);
                       setIsActive3(false);
                       setIsActive4(false);
+                      setIsActive5(false);
                     }}
                   >
                     <p className="span_text">
@@ -210,6 +212,7 @@ const Navbar = () => {
                       setIsActive2(!isActive2);
                       setIsActive3(false);
                       setIsActive4(false);
+                      setIsActive5(false);
                     }}
                   >
                     <p className="span_text">
@@ -264,6 +267,7 @@ const Navbar = () => {
                       setIsActive2(false);
                       setIsActive3(!isActive3);
                       setIsActive4(false);
+                      setIsActive5(false);
                     }}
                   >
                     <p className="span_text">
@@ -356,6 +360,60 @@ const Navbar = () => {
                           {/* <i className="fa-solid fa-grip-lines span_text2"></i> */}
                           <div className="menu_flex">
                             <span className="span_text">Strength List</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <span
+                    className="nav-link"
+                    onClick={() => {
+                      setIsActive1(false);
+                      setIsActive2(false);
+                      setIsActive3(false);
+                      setIsActive4(false);
+                      setIsActive5(!isActive5);
+                    }}
+                  >
+                    <p className="span_text">
+                      Blogs
+                      <i
+                        className={`fas fa-angle-left right ${
+                          isActive5 ? "d-none" : "d-block"
+                        }`}
+                      />
+                      <span className="badge badge-info right">2</span>
+                      <BiSolidChevronDown
+                        style={{ width: "23px", height: "23px" }}
+                        className={`down-arrow ${
+                          isActive5 ? "d-block" : "d-none"
+                        }`}
+                      />
+                    </p>
+                  </span>
+                  <ul
+                    className={` custom-drop ${
+                      isActive5 ? "custom-drop-show" : ""
+                    }`}
+                  >
+                    <Link to={"/add_blog"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <img style={{ width: 16 }} src={img7} alt="" /> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Add Blogs</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                    <Link to={"/blog_list"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <i className="fa-solid fa-grip-lines span_text2"></i> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Blogs List</span>
                           </div>
                         </span>
                       </li>

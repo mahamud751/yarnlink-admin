@@ -21,6 +21,8 @@ import Update_Privacy from "./components/Pages/Update_Privacy";
 import Add_Supplier from "./pages/Add_Supplier";
 import Add_Strength from "./pages/Add_Strength";
 import Strength from "./pages/Strength";
+import Add_Blog from "./pages/Add_Blog";
+import Blog from "./pages/Blog";
 
 function App() {
   return (
@@ -45,7 +47,8 @@ function App() {
           <Route path="banner_list" element={<Banner />} />
           <Route path="add_strength" element={<Add_Strength />} />
           <Route path="strength_list" element={<Strength />} />
-
+          <Route path="add_blog" element={<Add_Blog />} />
+          <Route path="blog_list" element={<Blog />} />
           <Route path="pages" element={<Pages />} />
           <Route path="add_privacy" element={<Add_Privacy />} />
           <Route path="privacy_list" element={<Privacy_list />} />

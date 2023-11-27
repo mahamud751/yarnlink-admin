@@ -1,34 +1,23 @@
 import React, { useEffect, useState } from "react";
-import img from "../../img/college/Icon material-delete.png";
-import img3 from "../../img/college/Icon feather-edit.png";
+
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import ToolkitProvider from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import BootstrapTable from "react-bootstrap-table-next";
-import Category from "../../pages/edit/Product";
 import { Link } from "react-router-dom";
-import Strength from "../../pages/edit/Strength";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { useQuery } from "react-query";
+import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import { BiSolidEdit } from "react-icons/bi";
+import BlogUpdate from "../../pages/edit/BlogUpdate";
+import BlogDetails from "./BlogDetails";
 
-const Strength_list = () => {
+const Blog_list = (props) => {
   const MySwal = withReactContent(Swal);
 
-  const { data, error } = useQuery("strength", async () => {
-    const response = await axios.get("http://localhost:5001/api/strength", {
-      mode: "cors",
-    });
-    return response.data;
-  });
-
-  useEffect(() => {
-    if (error) {
-      console.error("Error fetching banner data:", error);
-    }
-  }, [error, data]);
+  //sub stream
+  const [data, setData] = useState([]);
 
   const columns = [
     {
@@ -43,14 +32,14 @@ const Strength_list = () => {
       },
     },
     {
-      text: "Image",
+      text: "Picture",
       formatter: (cellContent, row) => {
         return (
           <div>
             <img
-              src={row.photos[0] && row.photos[0]}
+              src={row.photos[0]}
               alt=""
-              style={{ width: 120 }}
+              style={{ width: 120, height: 120 }}
             />
           </div>
         );
@@ -58,8 +47,9 @@ const Strength_list = () => {
     },
     {
       dataField: "name",
-      text: "Strength",
+      text: "Name",
     },
+
     {
       text: "Action",
       formatter: (cellContent, row) => {
@@ -67,34 +57,40 @@ const Strength_list = () => {
           <>
             {" "}
             <div className="d-flex justify-content-center">
-              <img
-                src={img3}
-                alt=""
-                data-toggle="modal"
-                data-target={`#loginModal${row._id}`}
-              />
-              <img
-                src={img}
-                alt=""
-                className="ms-3"
-                onClick={() => handleCategory(row._id)}
-              />
-            </div>
-            <div
-              className="modal fade"
-              id={`loginModal${row._id}`}
-              tabIndex="{-1}"
-              role="dialog"
-              aria-labelledby="loginModal"
-              aria-hidden="true"
-            >
-              <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{ width: 700 }}>
-                  <div className="modal-body">
-                    <Strength data={row} />
-                  </div>
-                </div>
+              <div>
+                <button
+                  type="button"
+                  className="bg-white"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#update${row._id}`}
+                >
+                  <span>
+                    <BiSolidEdit style={{ width: "30px", height: "30px" }} />
+                  </span>
+                </button>
+
+                <BlogUpdate data={row} />
               </div>
+              <div>
+                <button
+                  type="button"
+                  className="bg-white"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#propertyDetails${row._id}`}
+                >
+                  <span>
+                    <AiOutlineEye style={{ width: "30px", height: "30px" }} />
+                  </span>
+                </button>
+
+                {/* Modal Order Details */}
+                <BlogDetails data={row} />
+              </div>
+
+              <AiOutlineDelete
+                onClick={() => handleDelete(row._id)}
+                style={{ width: "30px", height: "30px", marginTop: "10px" }}
+              />
             </div>
           </>
         );
@@ -120,13 +116,26 @@ const Strength_list = () => {
       console.log("sizePerPage", sizePerPage);
     },
   });
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:5001/api/blogs`, {
+          mode: "cors",
+        });
+        setData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
 
   //delete
-  const [products, setProducts] = useState(data);
-  const handleCategory = async (id) => {
+  const [blogs, setBlogs] = useState(data);
+  const handleDelete = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/strength/${id}`;
+      const url = `http://localhost:5001/api/blogs/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -135,8 +144,8 @@ const Strength_list = () => {
           console.log(data);
           MySwal.fire("Good job!", "successfully deleted", "success");
           if (data.deletedCount === 1) {
-            const remainItem = products.filter((item) => item._id !== id);
-            setProducts(remainItem);
+            const remainItem = blogs.filter((item) => item._id !== id);
+            setBlogs(remainItem);
           }
         });
     }
@@ -149,13 +158,13 @@ const Strength_list = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-7">
-                <h6 className="college_h6">Strength List</h6>
+                <h6 className="college_h6">Blog List</h6>
               </div>
               <div className="export_btn_main">
                 <div>
                   <div className="">
                     <div className="corporate_addNew_btn">
-                      <Link to={"/add_strength"}>
+                      <Link to={"/add_blog"}>
                         <button className="college_btn2 ms-4 p-3">
                           Add New
                         </button>
@@ -173,7 +182,7 @@ const Strength_list = () => {
                     bootstrap4
                     keyField="_id"
                     columns={columns}
-                    data={data || []}
+                    data={data}
                     pagination={pagination}
                     exportCSV
                   >
@@ -183,7 +192,7 @@ const Strength_list = () => {
                           bootstrap4
                           keyField="_id"
                           columns={columns}
-                          data={data || []}
+                          data={data}
                           pagination={pagination}
                           {...props.baseProps}
                         />
@@ -200,4 +209,4 @@ const Strength_list = () => {
   );
 };
 
-export default Strength_list;
+export default Blog_list;
