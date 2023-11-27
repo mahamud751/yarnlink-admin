@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Privacy_list = () => {
   const [data, setData] = useState();
   const { isLoading, refetch } = useQuery([], () =>
-    fetch(`http://localhost:5001/api/privacy`, {
+    fetch(`https://yarnlink-server.onrender.com/api/privacy`, {
       method: "GET",
     })
       .then((res) => res.json())

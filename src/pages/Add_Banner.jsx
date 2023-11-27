@@ -35,7 +35,10 @@ const Add_Banner = () => {
         photos: list,
       };
 
-      await axios.post("http://localhost:5001/api/banner", product);
+      await axios.post(
+        "https://yarnlink-server.onrender.com/api/banner",
+        product
+      );
       MySwal.fire("Good job!", "successfully added", "success");
     } catch (err) {
       MySwal.fire("Something Error Found.", "warning");

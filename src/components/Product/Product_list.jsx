@@ -19,9 +19,12 @@ const Product_list = () => {
   const MySwal = withReactContent(Swal);
 
   const { data, error } = useQuery("product", async () => {
-    const response = await axios.get("http://localhost:5001/api/product", {
-      mode: "cors",
-    });
+    const response = await axios.get(
+      "https://yarnlink-server.onrender.com/api/product",
+      {
+        mode: "cors",
+      }
+    );
     return response.data;
   });
 
@@ -127,7 +130,7 @@ const Product_list = () => {
   const handleProduct = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/product/${id}`;
+      const url = `https://yarnlink-server.onrender.com/api/product/${id}`;
       fetch(url, {
         method: "DELETE",
       })

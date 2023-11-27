@@ -47,7 +47,10 @@ const Banner = ({ data }) => {
         photos: list,
       };
 
-      await axios.put(`http://localhost:5001/api/banner/${_id}`, product);
+      await axios.put(
+        `https://yarnlink-server.onrender.com/api/banner/${_id}`,
+        product
+      );
       MySwal.fire("Good job!", "successfully edited", "success");
     } catch (err) {
       MySwal.fire("Something Error Found.", "warning");

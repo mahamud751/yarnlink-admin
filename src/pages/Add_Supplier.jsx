@@ -35,7 +35,10 @@ const Add_Supplier = () => {
         photos: list,
       };
 
-      await axios.post("http://localhost:5001/api/supplier", product);
+      await axios.post(
+        "https://yarnlink-server.onrender.com/api/supplier",
+        product
+      );
       MySwal.fire("Good job!", "successfully added", "success");
     } catch (err) {
       MySwal.fire("Something Error Found.", "warning");

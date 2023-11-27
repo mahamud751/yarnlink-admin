@@ -31,7 +31,9 @@ const Add_property = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/category");
+        const response = await axios.get(
+          "https://yarnlink-server.onrender.com/api/category"
+        );
         setCategories(response.data);
       } catch (error) {
         console.log(error);
@@ -57,7 +59,9 @@ const Add_property = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/branch");
+        const response = await axios.get(
+          "https://yarnlink-server.onrender.com/api/branch"
+        );
         setBranch(response.data);
       } catch (error) {
         console.log(error);
@@ -70,7 +74,7 @@ const Add_property = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/facilityCategory"
+          "https://yarnlink-server.onrender.com/api/facilityCategory"
         );
         setFacilities(response.data);
       } catch (error) {
@@ -84,7 +88,7 @@ const Add_property = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5001/api/commonfacility"
+          "https://yarnlink-server.onrender.com/api/commonfacility"
         );
         setCommonaFacilities(response.data);
       } catch (error) {
@@ -234,7 +238,10 @@ const Add_property = () => {
         })),
       };
 
-      await axios.post("http://localhost:5001/api/property", product);
+      await axios.post(
+        "https://yarnlink-server.onrender.com/api/property",
+        product
+      );
       MySwal.fire("Good job!", "successfully added", "success");
       formRef.current.reset();
     } catch (err) {

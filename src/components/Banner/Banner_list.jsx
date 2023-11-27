@@ -19,9 +19,12 @@ const Banner_list = () => {
 
   //sub stream
   const { data, error } = useQuery("bannerData", async () => {
-    const response = await axios.get("http://localhost:5001/api/banner", {
-      mode: "cors",
-    });
+    const response = await axios.get(
+      "https://yarnlink-server.onrender.com/api/banner",
+      {
+        mode: "cors",
+      }
+    );
     return response.data;
   });
 
@@ -128,7 +131,7 @@ const Banner_list = () => {
   const handleCategory = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/banner/${id}`;
+      const url = `https://yarnlink-server.onrender.com/api/banner/${id}`;
       fetch(url, {
         method: "DELETE",
       })

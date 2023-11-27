@@ -18,9 +18,12 @@ const Strength_list = () => {
   const MySwal = withReactContent(Swal);
 
   const { data, error } = useQuery("strength", async () => {
-    const response = await axios.get("http://localhost:5001/api/strength", {
-      mode: "cors",
-    });
+    const response = await axios.get(
+      "https://yarnlink-server.onrender.com/api/strength",
+      {
+        mode: "cors",
+      }
+    );
     return response.data;
   });
 
@@ -126,7 +129,7 @@ const Strength_list = () => {
   const handleCategory = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/strength/${id}`;
+      const url = `https://yarnlink-server.onrender.com/api/strength/${id}`;
       fetch(url, {
         method: "DELETE",
       })

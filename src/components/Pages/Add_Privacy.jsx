@@ -17,7 +17,10 @@ const Add_Privacy = () => {
     };
 
     try {
-      await axios.post("http://localhost:5001/api/privacy", data2);
+      await axios.post(
+        "https://yarnlink-server.onrender.com/api/privacy",
+        data2
+      );
       MySwal.fire("Good job!", "successfully added", "success");
       formRef.current.reset();
     } catch (err) {

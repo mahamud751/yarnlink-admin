@@ -8,7 +8,7 @@ const Terms_list = () => {
   const [data, setData] = useState();
 
   const { isLoading, refetch } = useQuery([], () =>
-    fetch(`http://localhost:5001/api/terms`, {
+    fetch(`https://yarnlink-server.onrender.com/api/terms`, {
       method: "GET",
     })
       .then((res) => res.json())

@@ -34,7 +34,10 @@ const Add_Product = () => {
         photos: list,
       };
 
-      await axios.post("http://localhost:5001/api/product", product);
+      await axios.post(
+        "https://yarnlink-server.onrender.com/api/product",
+        product
+      );
       MySwal.fire("Good job!", "successfully added", "success");
       formRef.current.reset();
     } catch (err) {

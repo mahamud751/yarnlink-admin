@@ -12,7 +12,7 @@ const Update_Terms = () => {
 
   const [details, setDetails] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:5001/api/terms/${id}`)
+    fetch(`https://yarnlink-server.onrender.com/api/terms/${id}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, [id, details]);
@@ -24,7 +24,10 @@ const Update_Terms = () => {
       desc: details,
     };
     try {
-      await axios.put(`http://localhost:5001/api/terms/${id}`, data2);
+      await axios.put(
+        `https://yarnlink-server.onrender.com/api/terms/${id}`,
+        data2
+      );
       MySwal.fire("Good job!", "successfully added", "success");
       formRef.current.reset();
     } catch (err) {

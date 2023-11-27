@@ -20,9 +20,12 @@ const Supplier_list = () => {
   const MySwal = withReactContent(Swal);
 
   const { data, error } = useQuery("supplier", async () => {
-    const response = await axios.get("http://localhost:5001/api/supplier", {
-      mode: "cors",
-    });
+    const response = await axios.get(
+      "https://yarnlink-server.onrender.com/api/supplier",
+      {
+        mode: "cors",
+      }
+    );
     return response.data;
   });
 
@@ -128,7 +131,7 @@ const Supplier_list = () => {
   const handleSupplier = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/supplier/${id}`;
+      const url = `https://yarnlink-server.onrender.com/api/supplier/${id}`;
       fetch(url, {
         method: "DELETE",
       })

@@ -119,9 +119,12 @@ const Blog_list = (props) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5001/api/blogs`, {
-          mode: "cors",
-        });
+        const { data } = await axios.get(
+          `https://yarnlink-server.onrender.com/api/blogs`,
+          {
+            mode: "cors",
+          }
+        );
         setData(data);
       } catch (error) {
         console.log(error);
@@ -135,7 +138,7 @@ const Blog_list = (props) => {
   const handleDelete = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `http://localhost:5001/api/blogs/${id}`;
+      const url = `https://yarnlink-server.onrender.com/api/blogs/${id}`;
       fetch(url, {
         method: "DELETE",
       })
