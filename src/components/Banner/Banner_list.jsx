@@ -18,7 +18,7 @@ const Banner_list = () => {
   const MySwal = withReactContent(Swal);
 
   //sub stream
-  const { data, error } = useQuery("bannerData", async () => {
+  const { data, error, refetch } = useQuery("bannerData", async () => {
     const response = await axios.get(
       "https://yarnlink-server.onrender.com/api/banner",
       {
@@ -95,7 +95,7 @@ const Banner_list = () => {
               <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content" style={{ width: 700 }}>
                   <div className="modal-body">
-                    <Banner data={row} />
+                    <Banner data={row} refetch={refetch} />
                   </div>
                 </div>
               </div>
@@ -143,6 +143,7 @@ const Banner_list = () => {
             const remainItem = products.filter((item) => item._id !== id);
             setProducts(remainItem);
           }
+          refetch();
         });
     }
   };

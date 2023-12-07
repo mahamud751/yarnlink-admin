@@ -1,26 +1,18 @@
-import { Editor } from "@tinymce/tinymce-react";
-import { useRef, useState } from "react";
-import { TINY_MCE_EDITOR_INIT } from "../utils/constants";
 import axios from "axios";
+import React, { useState, useRef } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-const Add_Blog = () => {
+const Add_Vision = () => {
   const [files, setFiles] = useState("");
-  const [details, setDetails] = useState("");
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
   const MySwal = withReactContent(Swal);
   const formRef = useRef(null);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData(event.target);
     const data2 = {
-      desc: details,
-      name: name,
-      link: link,
+      desc: formData.get("desc"),
     };
-
     try {
       const list = await Promise.all(
         Object.values(files).map(async (file) => {
@@ -36,12 +28,14 @@ const Add_Blog = () => {
           return url;
         })
       );
+
       const product = {
         ...data2,
         photos: list,
       };
+
       await axios.post(
-        "https://yarnlink-server.onrender.com/api/blogs",
+        "https://yarnlink-server.onrender.com/api/vision",
         product
       );
       MySwal.fire("Good job!", "successfully added", "success");
@@ -55,40 +49,21 @@ const Add_Blog = () => {
       <div className="content-wrapper" style={{ background: "unset" }}>
         <div className="customize registration_div card">
           <form ref={formRef} onSubmit={handleSubmit}>
-            <div className="row p-3 ">
+            <div className="row p-3">
               <div className="col-md-12 form_sub_stream">
                 <label
                   htmlFor="inputState"
                   className="form-label profile_label3 "
                 >
-                  Name
+                  Desc
                 </label>
-
-                <input
-                  type="text"
+                <textarea
                   className="main_form w-100"
-                  name="name"
-                  value={name}
-                  placeholder="Blog Name"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="col-md-12 form_sub_stream">
-                <label
-                  htmlFor="inputState"
-                  className="form-label profile_label3 "
-                >
-                  Link
-                </label>
-
-                <input
-                  type="text"
-                  className="main_form w-100"
-                  name="link"
-                  value={link}
-                  placeholder="Blog link"
-                  onChange={(e) => setLink(e.target.value)}
-                />
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  name="desc"
+                  placeholder="Mission Desc"
+                ></textarea>
               </div>
               <div className="col-md-12 form_sub_stream">
                 <label
@@ -106,22 +81,15 @@ const Add_Blog = () => {
                   multiple
                 />
               </div>
-              <div className="col-md-12 form_sub_stream">
-                <Editor
-                  apiKey="9i9siri6weyxjml0qbccbm35m7o5r42axcf3lv0mbr0k3pkl"
-                  init={TINY_MCE_EDITOR_INIT}
-                  value={details}
-                  onEditorChange={(newValue) => setDetails(newValue)}
-                />
-              </div>
             </div>
+
             <div className="d-flex justify-content-center my-5">
               <button
                 type="submit"
                 className="profile_btn"
                 style={{ width: 175 }}
               >
-                Add Blog
+                Add Vision
               </button>
             </div>
           </form>
@@ -131,4 +99,4 @@ const Add_Blog = () => {
   );
 };
 
-export default Add_Blog;
+export default Add_Vision;

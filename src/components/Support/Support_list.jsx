@@ -4,24 +4,23 @@ import img3 from "../../img/college/Icon feather-edit.png";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import ToolkitProvider, {
-  CSVExport,
-} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min";
+import ToolkitProvider from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import BootstrapTable from "react-bootstrap-table-next";
-import { useQuery } from "react-query";
-
 import { Link } from "react-router-dom";
+import Banner from "../../pages/edit/Banner";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import Supplier from "../../pages/edit/Supplier";
+import { useQuery } from "react-query";
+import Support from "../../pages/edit/Support";
 
-const Supplier_list = () => {
+const Support_list = () => {
   const MySwal = withReactContent(Swal);
 
-  const { data, error, refetch } = useQuery("supplier", async () => {
+  //sub stream
+  const { data, error, refetch } = useQuery("supportData", async () => {
     const response = await axios.get(
-      "https://yarnlink-server.onrender.com/api/supplier",
+      "https://yarnlink-server.onrender.com/api/support",
       {
         mode: "cors",
       }
@@ -47,23 +46,14 @@ const Supplier_list = () => {
         );
       },
     },
+
     {
-      text: "Image",
-      formatter: (cellContent, row) => {
-        return (
-          <div>
-            <img
-              src={row.photos && row.photos[0]}
-              alt=""
-              style={{ width: 120 }}
-            />
-          </div>
-        );
-      },
+      dataField: "email",
+      text: "Email",
     },
     {
-      dataField: "name",
-      text: "Supplier",
+      dataField: "number",
+      text: "Number",
     },
     {
       text: "Action",
@@ -82,7 +72,7 @@ const Supplier_list = () => {
                 src={img}
                 alt=""
                 className="ms-3"
-                onClick={() => handleSupplier(row._id)}
+                onClick={() => handleCategory(row._id)}
               />
             </div>
             <div
@@ -96,7 +86,7 @@ const Supplier_list = () => {
               <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content" style={{ width: 700 }}>
                   <div className="modal-body">
-                    <Supplier data={row} refetch={refetch} />
+                    <Support data={row} refetch={refetch} />
                   </div>
                 </div>
               </div>
@@ -127,11 +117,12 @@ const Supplier_list = () => {
   });
 
   //delete
-  const [supplier, setSuppliers] = useState(data);
-  const handleSupplier = async (id) => {
+  const [products, setProducts] = useState(data);
+
+  const handleCategory = async (id) => {
     const confirmation = window.confirm("Are you Sure?");
     if (confirmation) {
-      const url = `https://yarnlink-server.onrender.com/api/supplier/${id}`;
+      const url = `https://yarnlink-server.onrender.com/api/support/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -140,9 +131,10 @@ const Supplier_list = () => {
           console.log(data);
           MySwal.fire("Good job!", "successfully deleted", "success");
           if (data.deletedCount === 1) {
-            const remainItem = supplier.filter((item) => item._id !== id);
-            setSuppliers(remainItem);
+            const remainItem = products.filter((item) => item._id !== id);
+            setProducts(remainItem);
           }
+          refetch();
         });
     }
   };
@@ -154,13 +146,13 @@ const Supplier_list = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-7">
-                <h6 className="college_h6">Supplier List</h6>
+                <h6 className="college_h6">Mission</h6>
               </div>
               <div className="export_btn_main">
                 <div>
                   <div className="">
                     <div className="corporate_addNew_btn">
-                      <Link to={"/add_supplier"}>
+                      <Link to={"/add_support"}>
                         <button className="college_btn2 ms-4 p-3">
                           Add New
                         </button>
@@ -198,17 +190,11 @@ const Supplier_list = () => {
                 </>
               </div>
             </div>
-            {/* /.row (main row) */}
           </div>
-          {/* /.container-fluid */}
         </section>
-        {/* /.content */}
       </div>
-      {/* /.content-wrapper */}
-
-      {/* Control Sidebar */}
     </div>
   );
 };
 
-export default Supplier_list;
+export default Support_list;

@@ -49,6 +49,10 @@ const Blog_list = (props) => {
       dataField: "name",
       text: "Name",
     },
+    {
+      dataField: "link",
+      text: "Link",
+    },
 
     {
       text: "Action",

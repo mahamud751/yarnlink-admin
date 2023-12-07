@@ -5,8 +5,8 @@ import withReactContent from "sweetalert2-react-content";
 import "./Main_steam.css";
 import axios from "axios";
 
-const Strength = ({ data }) => {
-  const { _id, name } = data;
+const Strength = ({ data, refetch }) => {
+  const { _id, name, desc } = data;
   const [user, setUser] = useState(data);
   const [files, setFiles] = useState("");
 
@@ -52,6 +52,7 @@ const Strength = ({ data }) => {
         product
       );
       MySwal.fire("Good job!", "successfully edited", "success");
+      refetch();
     } catch (err) {
       MySwal.fire("Something Error Found.", "warning");
     }
@@ -75,6 +76,21 @@ const Strength = ({ data }) => {
                   name="name"
                   onBlur={handleOnBlur}
                   defaultValue={name || ""}
+                />
+              </div>
+              <div className="col-md-12 mb-3">
+                <label
+                  htmlFor="inputState"
+                  className="form-label profile_label3"
+                >
+                  Strength Description
+                </label>
+                <input
+                  type="text"
+                  className="main_form  w-100"
+                  name="desc"
+                  onBlur={handleOnBlur}
+                  defaultValue={desc || ""}
                 />
               </div>
               <div className="col-md-12 mb-3">

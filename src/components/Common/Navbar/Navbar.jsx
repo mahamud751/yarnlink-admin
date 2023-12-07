@@ -20,6 +20,9 @@ const Navbar = () => {
   const [isActive3, setIsActive3] = useState(false);
   const [isActive4, setIsActive4] = useState(false);
   const [isActive5, setIsActive5] = useState(false);
+  const [isActive6, setIsActive6] = useState(false);
+  const [isActive7, setIsActive7] = useState(false);
+  const [isActive8, setIsActive8] = useState(false);
 
   const handleLogOut = () => {
     logoutUser();
@@ -158,6 +161,9 @@ const Navbar = () => {
                       setIsActive3(false);
                       setIsActive4(false);
                       setIsActive5(false);
+                      setIsActive6(false);
+                      setIsActive7(false);
+                      setIsActive8(false);
                     }}
                   >
                     <p className="span_text">
@@ -213,6 +219,9 @@ const Navbar = () => {
                       setIsActive3(false);
                       setIsActive4(false);
                       setIsActive5(false);
+                      setIsActive6(false);
+                      setIsActive7(false);
+                      setIsActive8(false);
                     }}
                   >
                     <p className="span_text">
@@ -268,6 +277,9 @@ const Navbar = () => {
                       setIsActive3(!isActive3);
                       setIsActive4(false);
                       setIsActive5(false);
+                      setIsActive6(false);
+                      setIsActive7(false);
+                      setIsActive8(false);
                     }}
                   >
                     <p className="span_text">
@@ -321,6 +333,10 @@ const Navbar = () => {
                       setIsActive2(false);
                       setIsActive3(false);
                       setIsActive4(!isActive4);
+                      setIsActive5(false);
+                      setIsActive6(false);
+                      setIsActive7(false);
+                      setIsActive8(false);
                     }}
                   >
                     <p className="span_text">
@@ -375,6 +391,9 @@ const Navbar = () => {
                       setIsActive3(false);
                       setIsActive4(false);
                       setIsActive5(!isActive5);
+                      setIsActive6(false);
+                      setIsActive7(false);
+                      setIsActive8(false);
                     }}
                   >
                     <p className="span_text">
@@ -414,6 +433,177 @@ const Navbar = () => {
                           {/* <i className="fa-solid fa-grip-lines span_text2"></i> */}
                           <div className="menu_flex">
                             <span className="span_text">Blogs List</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <span
+                    className="nav-link"
+                    onClick={() => {
+                      setIsActive1(false);
+                      setIsActive2(false);
+                      setIsActive3(false);
+                      setIsActive4(false);
+                      setIsActive5(false);
+                      setIsActive6(!isActive6);
+                      setIsActive7(false);
+                      setIsActive8(false);
+                    }}
+                  >
+                    <p className="span_text">
+                      Mission
+                      <i
+                        className={`fas fa-angle-left right ${
+                          isActive6 ? "d-none" : "d-block"
+                        }`}
+                      />
+                      <span className="badge badge-info right">2</span>
+                      <BiSolidChevronDown
+                        style={{ width: "23px", height: "23px" }}
+                        className={`down-arrow ${
+                          isActive6 ? "d-block" : "d-none"
+                        }`}
+                      />
+                    </p>
+                  </span>
+                  <ul
+                    className={` custom-drop ${
+                      isActive6 ? "custom-drop-show" : ""
+                    }`}
+                  >
+                    <Link to={"/add_mission"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <img style={{ width: 16 }} src={img7} alt="" /> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Add Mission</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                    <Link to={"/mission_list"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <i className="fa-solid fa-grip-lines span_text2"></i> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Mission List</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <span
+                    className="nav-link"
+                    onClick={() => {
+                      setIsActive1(false);
+                      setIsActive2(false);
+                      setIsActive3(false);
+                      setIsActive4(false);
+                      setIsActive5(false);
+                      setIsActive6(false);
+                      setIsActive7(!isActive6);
+                      setIsActive8(false);
+                    }}
+                  >
+                    <p className="span_text">
+                      Vision
+                      <i
+                        className={`fas fa-angle-left right ${
+                          isActive7 ? "d-none" : "d-block"
+                        }`}
+                      />
+                      <span className="badge badge-info right">2</span>
+                      <BiSolidChevronDown
+                        style={{ width: "23px", height: "23px" }}
+                        className={`down-arrow ${
+                          isActive7 ? "d-block" : "d-none"
+                        }`}
+                      />
+                    </p>
+                  </span>
+                  <ul
+                    className={` custom-drop ${
+                      isActive7 ? "custom-drop-show" : ""
+                    }`}
+                  >
+                    <Link to={"/add_vision"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <img style={{ width: 16 }} src={img7} alt="" /> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Add Vision</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                    <Link to={"/vision_list"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <i className="fa-solid fa-grip-lines span_text2"></i> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Vision List</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                  <span
+                    className="nav-link"
+                    onClick={() => {
+                      setIsActive1(false);
+                      setIsActive2(false);
+                      setIsActive3(false);
+                      setIsActive4(false);
+                      setIsActive5(false);
+                      setIsActive6(false);
+                      setIsActive7(false);
+                      setIsActive8(!isActive6);
+                    }}
+                  >
+                    <p className="span_text">
+                      Support
+                      <i
+                        className={`fas fa-angle-left right ${
+                          isActive5 ? "d-none" : "d-block"
+                        }`}
+                      />
+                      <span className="badge badge-info right">2</span>
+                      <BiSolidChevronDown
+                        style={{ width: "23px", height: "23px" }}
+                        className={`down-arrow ${
+                          isActive8 ? "d-block" : "d-none"
+                        }`}
+                      />
+                    </p>
+                  </span>
+                  <ul
+                    className={` custom-drop ${
+                      isActive8 ? "custom-drop-show" : ""
+                    }`}
+                  >
+                    <Link to={"/add_support"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <img style={{ width: 16 }} src={img7} alt="" /> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Add Support</span>
+                          </div>
+                        </span>
+                      </li>
+                    </Link>
+                    <Link to={"/support_list"}>
+                      <li className="main_nav-link">
+                        <span className="nav-link">
+                          {/* <i className="fa-solid fa-grip-lines span_text2"></i> */}
+                          <div className="menu_flex">
+                            <span className="span_text">Support List</span>
                           </div>
                         </span>
                       </li>

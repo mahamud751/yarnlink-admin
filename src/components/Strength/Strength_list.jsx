@@ -17,7 +17,7 @@ import { useQuery } from "react-query";
 const Strength_list = () => {
   const MySwal = withReactContent(Swal);
 
-  const { data, error } = useQuery("strength", async () => {
+  const { data, error, refetch } = useQuery("strength", async () => {
     const response = await axios.get(
       "https://yarnlink-server.onrender.com/api/strength",
       {
@@ -64,6 +64,10 @@ const Strength_list = () => {
       text: "Strength",
     },
     {
+      dataField: "desc",
+      text: "Description",
+    },
+    {
       text: "Action",
       formatter: (cellContent, row) => {
         return (
@@ -94,7 +98,7 @@ const Strength_list = () => {
               <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content" style={{ width: 700 }}>
                   <div className="modal-body">
-                    <Strength data={row} />
+                    <Strength data={row} refetch={refetch} />
                   </div>
                 </div>
               </div>
@@ -141,6 +145,7 @@ const Strength_list = () => {
             const remainItem = products.filter((item) => item._id !== id);
             setProducts(remainItem);
           }
+          refetch();
         });
     }
   };

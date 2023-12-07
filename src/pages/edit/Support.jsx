@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import "./Main_steam.css";
 import axios from "axios";
 
-const Product = ({ data, refetch }) => {
-  const { _id, name } = data;
+const Support = ({ data, refetch }) => {
+  const { _id, email, number } = data;
   const [user, setUser] = useState(data);
   const [files, setFiles] = useState("");
 
@@ -27,29 +27,9 @@ const Product = ({ data, refetch }) => {
       ...user,
     };
     try {
-      const list = await Promise.all(
-        Object.values(files).map(async (file) => {
-          const data = new FormData();
-          data.append("file", file);
-          data.append("upload_preset", "upload");
-          const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/dtpvtjiry/image/upload",
-            data
-          );
-
-          const { url } = uploadRes.data;
-          return url;
-        })
-      );
-
-      const product = {
-        ...newPost,
-        photos: list,
-      };
-
       await axios.put(
-        `https://yarnlink-server.onrender.com/api/product/${_id}`,
-        product
+        `https://yarnlink-server.onrender.com/api/support/${_id}`,
+        newPost
       );
       MySwal.fire("Good job!", "successfully edited", "success");
       refetch();
@@ -68,14 +48,14 @@ const Product = ({ data, refetch }) => {
                   htmlFor="inputState"
                   className="form-label profile_label3"
                 >
-                  Product Name
+                  Email
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   className="main_form  w-100"
-                  name="name"
+                  name="email"
                   onBlur={handleOnBlur}
-                  defaultValue={name || ""}
+                  defaultValue={email || ""}
                 />
               </div>
               <div className="col-md-12 mb-3">
@@ -83,14 +63,14 @@ const Product = ({ data, refetch }) => {
                   htmlFor="inputState"
                   className="form-label profile_label3"
                 >
-                  Product Picture
+                  Number
                 </label>
                 <input
-                  type="file"
-                  className="main_form w-100 p-0"
-                  name="img"
-                  onChange={(e) => setFiles(e.target.files)}
-                  multiple
+                  type="text"
+                  className="main_form  w-100"
+                  name="number"
+                  onBlur={handleOnBlur}
+                  defaultValue={number || ""}
                 />
               </div>
 
@@ -100,7 +80,7 @@ const Product = ({ data, refetch }) => {
                   className="profile_btn"
                   style={{ width: 220 }}
                 >
-                  Edit Product
+                  Edit Support
                 </button>
               </div>
             </div>
@@ -111,4 +91,4 @@ const Product = ({ data, refetch }) => {
   );
 };
 
-export default Product;
+export default Support;

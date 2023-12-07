@@ -23,6 +23,12 @@ import Add_Strength from "./pages/Add_Strength";
 import Strength from "./pages/Strength";
 import Add_Blog from "./pages/Add_Blog";
 import Blog from "./pages/Blog";
+import Add_Mission from "./pages/Add_Mission";
+import Add_Vision from "./pages/Add_Vision";
+import Add_Support from "./pages/Add_Support";
+import Vision from "./pages/Vision";
+import Misison from "./pages/Mission";
+import Support from "./pages/Support";
 
 function App() {
   return (
@@ -51,6 +57,12 @@ function App() {
           <Route path="blog_list" element={<Blog />} />
           <Route path="pages" element={<Pages />} />
           <Route path="add_privacy" element={<Add_Privacy />} />
+          <Route path="add_mission" element={<Add_Mission />} />
+          <Route path="mission_list" element={<Misison />} />
+          <Route path="add_vision" element={<Add_Vision />} />
+          <Route path="vision_list" element={<Vision />} />
+          <Route path="add_support" element={<Add_Support />} />
+          <Route path="support_list" element={<Support />} />
           <Route path="privacy_list" element={<Privacy_list />} />
           <Route path="add_terms" element={<Add_Terms />} />
           <Route path="terms_list" element={<Terms_list />} />

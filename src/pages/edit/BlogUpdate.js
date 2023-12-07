@@ -6,7 +6,6 @@ import withReactContent from "sweetalert2-react-content";
 import { useParams } from "react-router-dom";
 import { TINY_MCE_EDITOR_INIT } from "../../utils/constants";
 const ProductUpdate = ({ data }) => {
-  console.log(data);
   const [files, setFiles] = useState("");
   const [name, setName] = useState("");
   const [dataAll, setDataAll] = useState([]);
@@ -85,6 +84,23 @@ const ProductUpdate = ({ data }) => {
                     placeholder="Blog Name"
                     onBlur={handleOnBlur}
                     defaultValue={data.name || ""}
+                  />
+                </div>
+                <div className="col-md-12 form_sub_stream">
+                  <label
+                    htmlFor="inputState"
+                    className="form-label profile_label3 "
+                  >
+                    Link
+                  </label>
+
+                  <input
+                    type="text"
+                    className="main_form w-100"
+                    name="link"
+                    placeholder="Link Name"
+                    onBlur={handleOnBlur}
+                    defaultValue={data.link || ""}
                   />
                 </div>
 

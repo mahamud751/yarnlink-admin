@@ -5,7 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import "./Main_steam.css";
 import axios from "axios";
 
-const Banner = ({ data }) => {
+const Banner = ({ data, refetch }) => {
   const { _id, name } = data;
   const [user, setUser] = useState(data);
   const [files, setFiles] = useState("");
@@ -52,6 +52,7 @@ const Banner = ({ data }) => {
         product
       );
       MySwal.fire("Good job!", "successfully edited", "success");
+      refetch();
     } catch (err) {
       MySwal.fire("Something Error Found.", "warning");
     }

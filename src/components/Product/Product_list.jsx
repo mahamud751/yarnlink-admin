@@ -18,7 +18,7 @@ import { useQuery } from "react-query";
 const Product_list = () => {
   const MySwal = withReactContent(Swal);
 
-  const { data, error } = useQuery("product", async () => {
+  const { data, error, refetch } = useQuery("product", async () => {
     const response = await axios.get(
       "https://yarnlink-server.onrender.com/api/product",
       {
@@ -95,7 +95,7 @@ const Product_list = () => {
               <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content" style={{ width: 700 }}>
                   <div className="modal-body">
-                    <Product data={row} />
+                    <Product data={row} refetch={refetch} />
                   </div>
                 </div>
               </div>
@@ -142,6 +142,7 @@ const Product_list = () => {
             const remainItem = products.filter((item) => item._id !== id);
             setProducts(remainItem);
           }
+          refetch();
         });
     }
   };

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import "./Main_steam.css";
 import axios from "axios";
 
-const Product = ({ data, refetch }) => {
-  const { _id, name } = data;
+const Vision = ({ data, refetch }) => {
+  const { _id, desc } = data;
   const [user, setUser] = useState(data);
   const [files, setFiles] = useState("");
 
@@ -48,7 +48,7 @@ const Product = ({ data, refetch }) => {
       };
 
       await axios.put(
-        `https://yarnlink-server.onrender.com/api/product/${_id}`,
+        `https://yarnlink-server.onrender.com/api/vision/${_id}`,
         product
       );
       MySwal.fire("Good job!", "successfully edited", "success");
@@ -63,27 +63,29 @@ const Product = ({ data, refetch }) => {
         <div className="row">
           <div>
             <div className="card-body">
-              <div className="col-md-12 mb-3">
+              <div className="col-md-12 form_sub_stream">
                 <label
                   htmlFor="inputState"
-                  className="form-label profile_label3"
+                  className="form-label profile_label3 "
                 >
-                  Product Name
+                  Desc
                 </label>
-                <input
-                  type="text"
-                  className="main_form  w-100"
-                  name="name"
+                <textarea
+                  className="main_form w-100"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  name="desc"
+                  placeholder="Vision Desc"
                   onBlur={handleOnBlur}
-                  defaultValue={name || ""}
-                />
+                  defaultValue={desc || ""}
+                ></textarea>
               </div>
               <div className="col-md-12 mb-3">
                 <label
                   htmlFor="inputState"
                   className="form-label profile_label3"
                 >
-                  Product Picture
+                  Picture
                 </label>
                 <input
                   type="file"
@@ -100,7 +102,7 @@ const Product = ({ data, refetch }) => {
                   className="profile_btn"
                   style={{ width: 220 }}
                 >
-                  Edit Product
+                  Edit Vision
                 </button>
               </div>
             </div>
@@ -111,4 +113,4 @@ const Product = ({ data, refetch }) => {
   );
 };
 
-export default Product;
+export default Vision;
